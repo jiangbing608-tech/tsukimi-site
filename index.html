@@ -824,7 +824,7 @@ if(data){
 
 
 const musicId =
-getMusicId(data.music_link);
+getMusicId(data.music_link || "");
 
 
 
@@ -838,7 +838,6 @@ document.getElementById("music-card").innerHTML =
 🎵 今日音乐
 
 <br><br>
-
 
 <iframe
 
@@ -858,14 +857,10 @@ src="https://music.163.com/outchain/player?type=2&id=${musicId}&auto=0&height=66
 
 </iframe>
 
-
 `;
 
-
-
 }
 
-}
 
 document.getElementById("diary-text").value =
 data.content || "";
@@ -935,29 +930,25 @@ onConflict:"date"
 
 if(error){
 
-alert("保存失败");
-
-console.log(error);
+    alert("保存失败");
+    console.log(error);
 
 }
-
 else{
 
-document.getElementById("today-preview").textContent =
-content;
+    document.getElementById("today-preview").textContent =
+    content;
 
-
-alert("今日の記録を保存しました 🌙");
+    alert("今日の記録を保存しました 🌙");
 
 }
 
+};   // 关闭 onclick
 
-};
+});  // 关闭 DOMContentLoaded
 
 
-});
-    
-    const today = new Date();
+const today = new Date();
 
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
