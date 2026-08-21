@@ -4,19 +4,493 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>過去の記録</title>
+<title>月の記録室</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    background:#e6e7e3;
+
+    color:#343842;
+
+    font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+
+}
+
+
+
+.room {
+
+    min-height:100vh;
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:70px 30px;
+
+    text-align:center;
+
+}
+
+
+
+/* 月亮 */
+
+.big-moon {
+
+    width:100px;
+
+    height:100px;
+
+    background:#596270;
+
+    border-radius:50%;
+
+    margin:0 auto 35px;
+
+    opacity:0.85;
+
+}
+
+
+
+/* 标题 */
+
+h1 {
+
+    font-weight:normal;
+
+    font-size:38px;
+
+    letter-spacing:10px;
+
+    margin:0;
+
+}
+
+
+.subtitle {
+
+    margin-top:20px;
+
+    color:#777;
+
+    letter-spacing:4px;
+
+    font-size:14px;
+
+}
+
+
+
+/* 月相 */
+
+.moon-list {
+
+    margin:55px 0 40px;
+
+    font-size:24px;
+
+    letter-spacing:12px;
+
+    color:#596270;
+
+}
+
+
+
+/* 年月 */
+
+.month-title {
+
+    font-size:22px;
+
+    font-weight:normal;
+
+    letter-spacing:5px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* 日历 */
+
+.calendar {
+
+    max-width:720px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+}
+
+
+
+.day {
+
+    min-height:60px;
+
+    padding:15px 5px;
+
+    background:#f8f3e8;
+
+    border:1px solid #d8d1c4;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+}
+
+
+
+.day:hover {
+
+    transform:translateY(-3px);
+
+}
+
+
+
+.week {
+
+    background:transparent;
+
+    border:none;
+
+    min-height:30px;
+
+    color:#777;
+
+    cursor:default;
+
+}
+
+
+
+.today {
+
+    background:#596270;
+
+    color:white;
+
+}
+
+
+
+/* 未来日记标记 */
+
+.has-record::after {
+
+    content:"☾";
+
+    display:block;
+
+    font-size:12px;
+
+    margin-top:5px;
+
+}
+
+
+
+/* 底部 */
+
+footer {
+
+    margin-top:70px;
+
+    color:#777;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.room{
+
+    padding:50px 15px;
+
+}
+
+
+h1{
+
+    font-size:28px;
+
+}
+
+
+.calendar{
+
+    gap:6px;
+
+}
+
+
+.day{
+
+    min-height:45px;
+
+    padding:8px;
+
+}
+
+
+}
+
+
+
+
+</style>
 
 </head>
 
 
+
 <body>
 
-<h1>月見の庭</h1>
 
-<h2>過去の記録</h2>
+<div class="room">
 
-<p>ここに月と日記のカレンダーができます。</p>
+
+
+<div class="big-moon"></div>
+
+
+
+<h1>
+月の記録室
+</h1>
+
+
+<p class="subtitle">
+過去の日々を、月とともに残す。
+</p>
+
+
+
+<div class="moon-list">
+
+🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘
+
+</div>
+
+
+
+<h2 class="month-title" id="month-title">
+
+</h2>
+
+
+
+<div class="calendar" id="calendar">
+
+
+</div>
+
+
+
+<footer>
+
+「思い出は月のように。」
+
+</footer>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const calendar =
+document.getElementById("calendar");
+
+
+const monthTitle =
+document.getElementById("month-title");
+
+
+
+const today =
+new Date();
+
+
+
+const year =
+today.getFullYear();
+
+
+const month =
+today.getMonth();
+
+
+
+monthTitle.textContent =
+`${year}年 ${month + 1}月`;
+
+
+
+const weeks =
+[
+"日",
+"月",
+"火",
+"水",
+"木",
+"金",
+"土"
+];
+
+
+
+weeks.forEach(day=>{
+
+
+const div =
+document.createElement("div");
+
+
+div.className="day week";
+
+
+div.textContent=day;
+
+
+calendar.appendChild(div);
+
+
+});
+
+
+
+
+
+const firstDay =
+new Date(year,month,1).getDay();
+
+
+
+const lastDate =
+new Date(year,month+1,0).getDate();
+
+
+
+
+
+for(let i=0;i<firstDay;i++){
+
+
+const empty =
+document.createElement("div");
+
+
+empty.className="day";
+
+
+empty.style.visibility="hidden";
+
+
+calendar.appendChild(empty);
+
+
+}
+
+
+
+
+
+for(let d=1;d<=lastDate;d++){
+
+
+const div =
+document.createElement("div");
+
+
+div.className="day";
+
+
+div.textContent=d;
+
+
+
+if(
+d===today.getDate()
+&&
+month===today.getMonth()
+&&
+year===today.getFullYear()
+
+){
+
+div.classList.add("today");
+
+}
+
+
+
+div.onclick=function(){
+
+alert(
+`${year}年${month+1}月${d}日`
+);
+
+}
+
+
+
+calendar.appendChild(div);
+
+
+
+}
+
+
+
+</script>
+
 
 
 </body>
