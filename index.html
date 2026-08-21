@@ -634,12 +634,11 @@ placeholder="🔗 网易云音乐链接"
 </p>
 
 
-<a href="#" target="_blank">
+<div id="music-card">
 
-🎵 网易云音乐
+暂无音乐
 
-</a>
-
+</div>
 
 </div>
 
@@ -805,7 +804,28 @@ await supabaseClient
 
 
 if(data){
+document.getElementById("music-card").innerHTML =
 
+`
+🎵 ${data.music_name || "今日音乐"}
+
+<br>
+
+${data.music_artist || ""}
+
+<br><br>
+
+<img 
+src="${data.music_cover || ""}"
+width="120">
+
+<br>
+
+<a href="${data.music_link}" target="_blank">
+▶ 打开音乐
+</a>
+
+`;
 
 document.getElementById("diary-text").value =
 data.content || "";
