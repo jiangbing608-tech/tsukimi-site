@@ -31,14 +31,81 @@
         }
 
         /* 月相装饰 */
-        .moon-row {
-            text-align: center;
-            margin-bottom: 45px;
-            color: #596270;
-            font-size: 24px;
-            letter-spacing: 18px;
-            opacity: 0.65;
-        }
+       .moon-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 45px;
+    opacity: 0.65;
+}
+
+.moon-phase {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #596270;
+}
+
+/* 新月 */
+.moon-phase.new {
+    background: transparent;
+    border: 1px solid #596270;
+}
+
+/* 右弦月 */
+.moon-phase.crescent-right {
+    background: #596270;
+    box-shadow: inset -7px 0 0 #f8f3e8;
+}
+
+/* 右半月 */
+.moon-phase.quarter-right {
+    background: linear-gradient(
+        to right,
+        #596270 50%,
+        #f8f3e8 50%
+    );
+}
+
+/* 右凸月 */
+.moon-phase.gibbous-right {
+    background: linear-gradient(
+        to right,
+        #596270 70%,
+        #f8f3e8 70%
+    );
+}
+
+/* 满月 */
+.moon-phase.full {
+    background: #596270;
+}
+
+/* 左凸月 */
+.moon-phase.gibbous-left {
+    background: linear-gradient(
+        to left,
+        #596270 70%,
+        #f8f3e8 70%
+    );
+}
+
+/* 左半月 */
+.moon-phase.quarter-left {
+    background: linear-gradient(
+        to left,
+        #596270 50%,
+        #f8f3e8 50%
+    );
+}
+
+/* 左弦月 */
+.moon-phase.crescent-left {
+    background: #596270;
+    box-shadow: inset 7px 0 0 #f8f3e8;
+}
 
         /* 网站标题 */
         .title {
@@ -210,11 +277,18 @@
 <div class="notebook">
 
     <!-- 月相装饰 -->
-    <div class="moon-row">
-        ◐ ◑ ◒ ◓ ● ◒ ◑ ◐
-    </div>
+<div class="moon-row">
+    <span class="moon-phase new"></span>
+    <span class="moon-phase crescent-right"></span>
+    <span class="moon-phase quarter-right"></span>
+    <span class="moon-phase gibbous-right"></span>
+    <span class="moon-phase full"></span>
+    <span class="moon-phase gibbous-left"></span>
+    <span class="moon-phase quarter-left"></span>
+    <span class="moon-phase crescent-left"></span>
+</div>
 
-    <!-- 标题 -->
+    <!-- 标题 -->。
     <header class="title">
 
         <div class="moon">☾</div>
