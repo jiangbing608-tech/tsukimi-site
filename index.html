@@ -41,7 +41,7 @@
     #f8f3e8;
 
 
-    box-shadow:
+    box-shadow:    
     0 0 40px rgba(70,60,50,0.08);
 
 
@@ -256,32 +256,6 @@
     rotate(-1deg);
 
 }
-
-
-/* 手帐纸片轻微错位 */
-
-.section:nth-child(1){
-    transform:rotate(-1deg);
-}
-
-
-.section:nth-child(2){
-    transform:rotate(1deg);
-}
-
-
-.section:nth-child(3){
-    transform:rotate(-0.5deg);
-}
-
-
-.section:nth-child(4){
-    transform:rotate(1deg);
-}
-
-.section:nth-child(5){
-    transform:rotate(-1deg);
-}        
         
         .section .symbol {
             font-size: 24px;
@@ -301,6 +275,112 @@
             color: #858078;
         }
 
+/* 生活记录 */
+
+.life {
+
+    max-width:750px;
+
+    margin:0 auto 70px;
+
+}
+
+
+
+.life-item {
+
+    display:grid;
+
+    grid-template-columns:1fr 2fr;
+
+    gap:40px;
+
+    padding:35px 0;
+
+    border-bottom:1px solid #ddd4c4;
+
+    align-items:center;
+
+}
+
+
+
+.life-title {
+
+    font-size:24px;
+
+    letter-spacing:5px;
+
+    color:#596270;
+
+}
+
+
+
+.life-content h3 {
+
+    font-size:20px;
+
+    font-weight:normal;
+
+    letter-spacing:3px;
+
+    margin-top:0;
+
+}
+
+
+
+.life-content p {
+
+    line-height:2;
+
+    color:#59554e;
+
+}
+
+
+
+.life-content a {
+
+    color:#596270;
+
+    text-decoration:none;
+
+}
+
+
+
+.calendar-link {
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:50px;
+
+    color:#596270;
+
+    text-decoration:none;
+
+    letter-spacing:4px;
+
+}
+
+
+
+@media(max-width:600px){
+
+.life-item{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+}
+        
         /* 月相区域 */
         .moon-section {
             text-align: center;
@@ -423,83 +503,147 @@
     </section>
 
 
-<!-- 小さな記録 -->
+<!-- 生活记录 -->
 
-<section class="sections">
+<section class="life">
 
 
-<a href="#" class="section">
+<div class="life-item">
 
-<div class="symbol">📖</div>
 
-<h3>今日の日記</h3>
+<div class="life-title">
+
+📖 日記
+
+</div>
+
+
+<div class="life-content">
+
+<h3>今日のこと</h3>
 
 <p>
-今日のことを残す
+这里记录今天发生的事情。
 </p>
+
+<p>
+可以写一点想法，
+一点生活，
+一点月光下的小故事。
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="life-item">
+
+
+<div class="life-content">
+
+<h3>今聴いている音楽</h3>
+
+<p>
+今日喜欢的歌曲
+</p>
+
+
+<a href="#" target="_blank">
+
+🎵 网易云音乐
 
 </a>
 
 
-
-<a href="#" class="section">
-
-<div class="symbol">🎵</div>
-
-<h3>音楽</h3>
-
-<p>
-心に残った曲
-</p>
-
-</a>
+</div>
 
 
+<div class="life-title">
 
-<a href="#" class="section">
+🎵 音楽
 
-<div class="symbol">📷</div>
+</div>
 
-<h3>写真</h3>
 
-<p>
-小さな思い出
-</p>
-
-</a>
+</div>
 
 
 
-<a href="#" class="section">
 
-<div class="symbol">🇯🇵</div>
 
-<h3>日本語</h3>
+<div class="life-item">
+
+
+<div class="life-title">
+
+📷 写真
+
+</div>
+
+
+<div class="life-content">
+
+<h3>最近の写真</h3>
 
 <p>
-勉強の記録
+以后这里放照片。
 </p>
 
-</a>
+
+</div>
+
+
+</div>
 
 
 
-<a href="calendar.html" class="section">
 
-<div class="symbol">⛩️</div>
 
-<h3>月の記録室</h3>
+
+<div class="life-item">
+
+
+<div class="life-content">
+
+<h3>日本語の勉強</h3>
 
 <p>
-過去の日々を見る
+今日の日本語：
 </p>
+
+<p>
+月がきれいですね。
+</p>
+
+
+</div>
+
+
+<div class="life-title">
+
+🇯🇵 日本語
+
+</div>
+
+
+</div>
+
+
+
+<a href="calendar.html" class="calendar-link">
+
+⛩️ 月の記録室
 
 </a>
 
 
 
 </section>
-
     <!-- 月相 -->
     <section class="moon-section">
 
