@@ -217,6 +217,64 @@
             color: #59554e;
         }
 
+.diary textarea {
+
+    width:100%;
+    min-height:160px;
+
+    padding:20px;
+
+    background:#fffaf0;
+
+    border:1px solid #ddd4c4;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    line-height:2;
+
+    resize:none;
+
+}
+
+
+.diary input {
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:12px;
+
+    border:1px solid #ddd4c4;
+
+    background:#fffaf0;
+
+    font-family:inherit;
+
+}
+
+
+
+.diary button {
+
+    margin-top:25px;
+
+    padding:12px 40px;
+
+    background:#596270;
+
+    color:white;
+
+    border:none;
+
+    cursor:pointer;
+
+    letter-spacing:3px;
+
+}
+        
         /* 四个入口 */
         .sections {
             display: grid;
@@ -501,22 +559,31 @@
    <div class="date" id="today-date"></div>
 
 
-    <!-- 今日记录 -->
-    <section class="diary">
+<!-- 今日记录 -->
 
-       <h2>今日の一言</h2>
+<section class="diary">
 
-        <p>
-          月を見ながら、
-     今日の小さなことを残す。
-        </p>
+<h2>今日の記録</h2>
 
-        <p>
-            今天是「月見の庭」开始搭建的第一天。
-        </p>
 
-    </section>
+<textarea 
+id="diary-text"
+placeholder="今日は何をしましたか？&#10;今天发生了什么呢？">
+</textarea>
 
+
+<input
+id="music-url"
+placeholder="🎵 网易云音乐链接"
+/>
+
+
+<button id="save-btn">
+保存今日
+</button>
+
+
+</section>
 
 <!-- 生活记录 -->
 
@@ -693,7 +760,83 @@
 
 </div>
     
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const SUPABASE_URL =
+"https://cnmsctwltdmfkgfhysqi.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_sxexZUH4aIZ0F6p3WwMY2Q_4JagOL24";
+
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+document
+.getElementById("save-btn")
+.onclick = async function(){
+
+
+const content =
+document.getElementById("diary-text").value;
+
+
+const music =
+document.getElementById("music-url").value;
+
+
+const today =
+new Date()
+.toISOString()
+.split("T")[0];
+
+
+const {data,error}=
+
+await supabaseClient
+
+.from("diary")
+
+.insert([
+
+{
+date:today,
+content:content,
+music:music
+}
+
+]);
+
+
+
+if(error){
+
+alert("保存失败");
+
+console.log(error);
+
+}
+
+else{
+
+alert("今日の記録を保存しました 🌙");
+
+}
+
+
+};
+
+
+});
+    
     const today = new Date();
 
     const year = today.getFullYear();
