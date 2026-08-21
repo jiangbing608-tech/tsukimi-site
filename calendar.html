@@ -351,10 +351,22 @@ h1{
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+    
+const SUPABASE_URL =
+"https://cnmsctwltdmfkgfhysqi.supabase.co";
 
+const SUPABASE_KEY =
+"sb_publishable_sxexZUH4aIZ0F6p3WwMY2Q_4JagOL24";
+
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 const calendar =
 document.getElementById("calendar");
@@ -366,6 +378,7 @@ document.getElementById("month-title");
 
 const today =
 new Date();
+let diaryDates = [];
 
 
 
@@ -437,6 +450,28 @@ calendar.appendChild(empty);
 
 
 
+async function createCalendar(){
+
+
+const {data,error}=
+
+await supabaseClient
+
+.from("diary")
+
+.select("date");
+
+
+
+if(data){
+
+diaryDates =
+data.map(item=>item.date);
+
+}
+
+
+
 for(let d=1;d<=last;d++){
 
 
@@ -447,7 +482,19 @@ div.className="day";
 
 
 div.textContent=d;
+    
+const checkDate =
+`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
 
+
+if(diaryDates.includes(checkDate)){
+
+
+div.innerHTML =
+`${d}<br>🌙`;
+
+
+}
 
 
 if(
@@ -462,9 +509,12 @@ div.classList.add("today");
 
 div.onclick=function(){
 
-window.location.href =
-`diary.html?date=${year}-${month+1}-${d}`;
+const clickDate =
+`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
 
+
+window.location.href =
+`diary.html?date=${clickDate}`;
 };
 
 
@@ -474,9 +524,13 @@ calendar.appendChild(div);
 }
 
 
+}
+
+
+
+createCalendar();
 
 </script>
-
 
 
 </body>
