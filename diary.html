@@ -187,7 +187,21 @@ text-decoration:none;
 
 }
 
+#music-link-view{
 
+display:inline-block;
+
+margin-top:15px;
+
+padding:8px 18px;
+
+border:1px solid #596270;
+
+letter-spacing:2px;
+
+font-size:14px;
+
+}
 
 
 
@@ -326,6 +340,13 @@ opacity:.8;
 <p id="music-content">
 </p>
 
+<a 
+id="music-link-view"
+target="_blank"
+style="display:none;">
+🎧 聴く
+</a>
+  
 </section>
 
 
@@ -407,7 +428,9 @@ document.getElementById("diary-content");
 const musicContent =
 document.getElementById("music-content");
 
-
+const musicLinkView =
+document.getElementById("music-link-view");
+  
 const japaneseContent =
 document.getElementById("japanese-content");
 
@@ -494,7 +517,16 @@ diaryContent.textContent =
 musicContent.textContent =
 "暂无记录";
 
+if(data.music_link){
 
+musicLinkView.href =
+data.music_link;
+
+musicLinkView.style.display =
+"inline-block";
+
+}
+  
 japaneseContent.textContent =
 "暂无记录";
 
@@ -514,8 +546,7 @@ data.content || "暂无记录";
 
 
 musicContent.textContent =
-data.music || "暂无记录";
-
+data.music || "";
 
 japaneseContent.textContent =
 data.japanese || "暂无记录";
