@@ -793,10 +793,10 @@ const music =
 document.getElementById("music-url").value;
 
 
+const now = new Date();
+
 const today =
-new Date()
-.toISOString()
-.split("T")[0];
+`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
 
 
 const {data,error}=
@@ -805,16 +805,21 @@ await supabaseClient
 
 .from("diary")
 
-.insert([
-
+.upsert(
+[
 {
 date:today,
+
 content:content,
+
 music:music
+
 }
-
-]);
-
+],
+{
+onConflict:"date"
+}
+);
 
 
 if(error){
