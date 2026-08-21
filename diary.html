@@ -382,7 +382,6 @@ opacity:.8;
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
-<script>
 const SUPABASE_URL =
 "https://cnmsctwltdmfkgfhysqi.supabase.co";
 
@@ -393,56 +392,57 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
+
+
 
 const params =
 new URLSearchParams(
-window.location.search
+    window.location.search
 );
 
 
 const date =
 params.get("date");
 
-const title =
-document.getElementById("title");
 
 
-  
-  const todayDate = new Date();
+const todayDate =
+new Date();
+
 
 const todayString =
 `${todayDate.getFullYear()}-${String(todayDate.getMonth()+1).padStart(2,"0")}-${String(todayDate.getDate()).padStart(2,"0")}`;
 
 
-let isToday = false;
+
+const targetDate =
+date || todayString;
+
+
+
+const title =
+document.getElementById("title");
+
 
 
 if(date){
-
-    isToday = date === todayString;
-
-}
-else{
-
-    isToday = true;
-
-}
-
-
-
-if(!isToday){
 
 title.textContent =
 `${date}の日記`;
 
 }
-  
-async function loadDiary(){
 
-const targetDate = date || todayString;
+
+
+document.getElementById("date").textContent =
+targetDate;
+
+
+
+async function loadDiary(){
 
 
 const {data,error}=
@@ -458,6 +458,12 @@ await supabaseClient
 .single();
 
 
+
+console.log(data);
+console.log(error);
+
+
+
 if(data){
 
 
@@ -465,14 +471,13 @@ document.getElementById("diary-content").textContent =
 data.content || "今天没有留下记录。";
 
 
-document.getElementById("music-content").textContent =
-data.music || "没有记录音乐。";
 
-  if(data.music_link){
+if(data.music_link){
+
 
 document.getElementById("music-content").innerHTML =
 `
-${data.music}
+${data.music || ""}
 <br>
 <a href="${data.music_link}" target="_blank">
 🎵 打开音乐
@@ -480,12 +485,41 @@ ${data.music}
 `;
 
 }
+else{
+
+
+document.getElementById("music-content").textContent =
+data.music || "没有记录音乐。";
+
+
+}
+
+
 
 document.getElementById("japanese-content").textContent =
 data.japanese || "没有记录日本語。";
 
 
+
 }
+
+else{
+
+
+document.getElementById("diary-content").textContent =
+"今天没有留下记录。";
+
+
+document.getElementById("music-content").textContent =
+"没有记录音乐。";
+
+
+document.getElementById("japanese-content").textContent =
+"没有记录日本語。";
+
+
+}
+
 
 
 }
@@ -493,30 +527,6 @@ data.japanese || "没有记录日本語。";
 
 
 loadDiary();
-
-if(date){
-
-document.getElementById("date").textContent =
-date;
-
-}else{
-
-
-const today =
-new Date();
-
-
-document.getElementById("date").textContent =
-`${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
-
-
-}
-
-
-};
-  
-</script>
-
 </body>
 
 </html>
