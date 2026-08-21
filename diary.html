@@ -303,10 +303,8 @@ opacity:.8;
 </h2>
 
 
-<textarea id="diary-text"
-placeholder="今天发生了什么？&#10;&#10;写一点生活，写一点想法，写一点月光。">
-</textarea>
-
+<p id="diary-content">
+</p>
 
 </section>
 
@@ -325,15 +323,8 @@ placeholder="今天发生了什么？&#10;&#10;写一点生活，写一点想法
 </p>
 
 
-<input 
-id="music"
-placeholder="歌曲名字">
-
-
-<input 
-id="music-link"
-placeholder="网易云音乐链接">
-
+<p id="music-content">
+</p>
 
 </section>
 
@@ -369,21 +360,10 @@ placeholder="网易云音乐链接">
 🇯🇵 日本語
 </h2>
 
-
-<textarea 
-id="japanese-text"
-placeholder="今日の日本語">
-</textarea>
-
+<p id="japanese-content">
+</p>
 
 </section>
-
-<button id="save">
-
-🌙 保存する
-
-</button>
-
 
 <footer>
 
@@ -462,9 +442,7 @@ title.textContent =
   
 async function loadDiary(){
 
-if(!date){
-return;
-}
+const targetDate = date || todayString;
 
 
 const {data,error}=
@@ -475,29 +453,36 @@ await supabaseClient
 
 .select("*")
 
-.eq("date",date)
+.eq("date",targetDate)
 
 .single();
-
 
 
 if(data){
 
 
-diary.value =
-data.content || "";
+document.getElementById("diary-content").textContent =
+data.content || "今天没有留下记录。";
 
 
-music.value =
-data.music || "";
+document.getElementById("music-content").textContent =
+data.music || "没有记录音乐。";
 
+  if(data.music_link){
 
-musicLink.value =
-data.music_link || "";
+document.getElementById("music-content").innerHTML =
+`
+${data.music}
+<br>
+<a href="${data.music_link}" target="_blank">
+🎵 打开音乐
+</a>
+`;
 
+}
 
-japanese.value =
-data.japanese || "";
+document.getElementById("japanese-content").textContent =
+data.japanese || "没有记录日本語。";
 
 
 }
@@ -524,68 +509,6 @@ new Date();
 document.getElementById("date").textContent =
 `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
 
-
-}
-
-const diary =
-document.getElementById("diary-text");
-
-const music =
-document.getElementById("music");
-
-const musicLink =
-document.getElementById("music-link");
-
-const japanese =
-document.getElementById("japanese-text");
-
-
-document.getElementById("save")
-.onclick=async function(){
-
-
-const data={
-
-date: date || todayString,
-
-content:diary.value,
-
-music:music.value,
-
-music_link:musicLink.value,
-
-japanese:japanese.value
-
-};
-
-
-
-const {error}=
-
-await supabaseClient
-
-.from("diary")
-
-.upsert(
-[data],
-{
-onConflict:"date"
-}
-);
-
-
-
-if(error){
-
-console.log(error);
-
-alert("保存失败");
-
-}
-
-else{
-
-alert("月の記録を保存しました 🌙");
 
 }
 
