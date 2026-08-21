@@ -20,16 +20,34 @@
         }
 
         /* 整本手帐 */
-        .notebook {
-            position: relative;
-            max-width: 900px;
-            min-height: 100vh;
-            margin: 0 auto;
-            padding: 70px 45px;
-            background: #f8f3e8;
-            overflow: hidden;
-        }
+.notebook {
 
+    position:relative;
+
+    max-width:900px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
+    padding:70px 45px;
+
+
+    background:
+    linear-gradient(
+        rgba(255,255,255,0.25),
+        rgba(255,255,255,0.25)
+    ),
+    #f8f3e8;
+
+
+    box-shadow:
+    0 0 40px rgba(70,60,50,0.08);
+
+
+    overflow:hidden;
+
+}
         /* 月相装饰 */
        .moon-row {
     display: flex;
@@ -207,23 +225,64 @@
             max-width: 650px;
             margin: 0 auto 65px;
         }
+        
+.section {
 
-       .section {
-           padding: 25px;
-           background: #f4eee2;
-           border: 1px solid #ddd4c4;
-           text-align: center;
-           transition: 0.2s;
+    padding: 32px 25px;
 
-           text-decoration: none;
-           color: inherit;
-           display: block;
-        }
+    background: #fbf7ee;
 
-        .section:hover {
-            transform: translateY(-3px);
-        }
+    border: 1px solid #ddd4c4;
 
+    text-align:center;
+
+    text-decoration:none;
+
+    color:inherit;
+
+    display:block;
+
+    transition:0.25s;
+
+    box-shadow:
+    3px 5px 12px rgba(80,70,60,0.08);
+
+}
+
+.section:hover {
+
+    transform:
+    translateY(-5px)
+    rotate(-1deg);
+
+}
+
+
+/* 手帐纸片轻微错位 */
+
+.section:nth-child(1){
+    transform:rotate(-1deg);
+}
+
+
+.section:nth-child(2){
+    transform:rotate(1deg);
+}
+
+
+.section:nth-child(3){
+    transform:rotate(-0.5deg);
+}
+
+
+.section:nth-child(4){
+    transform:rotate(1deg);
+}
+
+.section:nth-child(5){
+    transform:rotate(-1deg);
+}        
+        
         .section .symbol {
             font-size: 24px;
             margin-bottom: 10px;
@@ -364,43 +423,82 @@
     </section>
 
 
-    <!-- 四个入口 -->
-    <section class="sections">
+<!-- 小さな記録 -->
 
-        <div class="section">
-            <div class="symbol">📖</div>
-            <h3>日記</h3>
-            <p>日々の記録</p>
-        </div>
+<section class="sections">
 
-        <div class="section">
-            <div class="symbol">📷</div>
-            <h3>写真</h3>
-            <p>小さな思い出</p>
-        </div>
 
-        <div class="section">
-            <div class="symbol">🎵</div>
-            <h3>音楽</h3>
-            <p>今日聴いた音楽</p>
-        </div>
+<a href="#" class="section">
 
-        <div class="section">
-            <div class="symbol">✎</div>
-            <h3>日本語</h3>
-            <p>日本語の勉強</p>
-        </div>
+<div class="symbol">📖</div>
 
-     <a href="calendar.html" class="section">
+<h3>今日の日記</h3>
 
-    <div class="symbol">📅</div>
-    <h3>記録</h3>
-    <p>過去の日々</p>
+<p>
+今日のことを残す
+</p>
 
-     </a>
-        
-    </section>
+</a>
 
+
+
+<a href="#" class="section">
+
+<div class="symbol">🎵</div>
+
+<h3>音楽</h3>
+
+<p>
+心に残った曲
+</p>
+
+</a>
+
+
+
+<a href="#" class="section">
+
+<div class="symbol">📷</div>
+
+<h3>写真</h3>
+
+<p>
+小さな思い出
+</p>
+
+</a>
+
+
+
+<a href="#" class="section">
+
+<div class="symbol">🇯🇵</div>
+
+<h3>日本語</h3>
+
+<p>
+勉強の記録
+</p>
+
+</a>
+
+
+
+<a href="calendar.html" class="section">
+
+<div class="symbol">⛩️</div>
+
+<h3>月の記録室</h3>
+
+<p>
+過去の日々を見る
+</p>
+
+</a>
+
+
+
+</section>
 
     <!-- 月相 -->
     <section class="moon-section">
