@@ -284,7 +284,7 @@ opacity:.8;
 </div>
 
 
-<h1>
+<h1 id="title">
 今日の日記
 </h1>
 
@@ -400,9 +400,8 @@ placeholder="今日の日本語">
 </div>
 
 
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 <script>
 const SUPABASE_URL =
 "https://cnmsctwltdmfkgfhysqi.supabase.co";
@@ -427,6 +426,40 @@ window.location.search
 const date =
 params.get("date");
 
+const title =
+document.getElementById("title");
+
+
+  
+  const todayDate = new Date();
+
+const todayString =
+`${todayDate.getFullYear()}-${String(todayDate.getMonth()+1).padStart(2,"0")}-${String(todayDate.getDate()).padStart(2,"0")}`;
+
+
+let isToday = false;
+
+
+if(date){
+
+    isToday = date === todayString;
+
+}
+else{
+
+    isToday = true;
+
+}
+
+
+
+if(!isToday){
+
+title.textContent =
+`${date}の日記`;
+
+}
+  
 async function loadDiary(){
 
 if(!date){
@@ -513,7 +546,7 @@ document.getElementById("save")
 
 const data={
 
-date:date,
+date: date || todayString,
 
 content:diary.value,
 
@@ -560,7 +593,6 @@ alert("月の記録を保存しました 🌙");
 };
   
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </body>
 
