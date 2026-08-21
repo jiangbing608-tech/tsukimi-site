@@ -1,36 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>月见的生活记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>月見の庭</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #eee8dc;
+            color: #37342f;
+            font-family: "Yu Mincho", "Hiragino Mincho ProN",
+                         "Noto Serif JP", serif;
+        }
+
+        /* 整本手帐 */
+        .notebook {
+            position: relative;
+            max-width: 900px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 70px 45px;
+            background: #f8f3e8;
+            overflow: hidden;
+        }
+
+        /* 月相装饰 */
+        .moon-row {
+            text-align: center;
+            margin-bottom: 45px;
+            color: #596270;
+            font-size: 24px;
+            letter-spacing: 18px;
+            opacity: 0.65;
+        }
+
+        /* 网站标题 */
+        .title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .title .moon {
+            font-size: 42px;
+            color: #596270;
+            margin-bottom: 12px;
+        }
+
+        .title h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: normal;
+            letter-spacing: 8px;
+        }
+
+        .title p {
+            margin-top: 18px;
+            font-size: 13px;
+            letter-spacing: 4px;
+            color: #777269;
+        }
+
+        /* 日期 */
+        .date {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #777269;
+            letter-spacing: 2px;
+        }
+
+        /* 今日记录 */
+        .diary {
+            position: relative;
+            max-width: 650px;
+            margin: 0 auto 55px;
+            padding: 40px;
+            background: #fbf7ee;
+            border: 1px solid #ddd4c4;
+            box-shadow: 4px 5px 0 rgba(100, 90, 75, 0.08);
+        }
+
+        .diary h2 {
+            margin-top: 0;
+            font-size: 22px;
+            font-weight: normal;
+            letter-spacing: 4px;
+        }
+
+        .diary p {
+            line-height: 2;
+            color: #59554e;
+        }
+
+        /* 四个入口 */
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            max-width: 650px;
+            margin: 0 auto 65px;
+        }
+
+        .section {
+            padding: 25px;
+            background: #f4eee2;
+            border: 1px solid #ddd4c4;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+        }
+
+        .section .symbol {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .section h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: normal;
+            letter-spacing: 3px;
+        }
+
+        .section p {
+            margin-bottom: 0;
+            font-size: 12px;
+            color: #858078;
+        }
+
+        /* 月相区域 */
+        .moon-section {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .moon-section h2 {
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 4px;
+        }
+
+        .phases {
+            margin-top: 25px;
+            font-size: 25px;
+            letter-spacing: 12px;
+            color: #596270;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            color: #858078;
+            font-size: 13px;
+            letter-spacing: 3px;
+            line-height: 2;
+        }
+
+        /* 手机 */
+        @media (max-width: 600px) {
+
+            .notebook {
+                padding: 45px 20px;
+            }
+
+            .moon-row {
+                font-size: 17px;
+                letter-spacing: 7px;
+            }
+
+            .title h1 {
+                font-size: 30px;
+                letter-spacing: 6px;
+            }
+
+            .title .moon {
+                font-size: 34px;
+            }
+
+            .diary {
+                padding: 28px 22px;
+            }
+
+            .sections {
+                gap: 10px;
+            }
+
+            .section {
+                padding: 20px 10px;
+            }
+
+            .phases {
+                font-size: 19px;
+                letter-spacing: 5px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🌙 月见的生活记录</h1>
+<div class="notebook">
 
-<p>欢迎来到我的个人网站。</p>
+    <!-- 月相装饰 -->
+    <div class="moon-row">
+        ◐ ◑ ◒ ◓ ● ◒ ◑ ◐
+    </div>
 
-<p>
-这里会记录我的生活、音乐、日语学习和喜欢的东西。
-</p>
+    <!-- 标题 -->
+    <header class="title">
 
-<hr>
+        <div class="moon">☾</div>
 
-<h2>最近</h2>
+        <h1>月見の庭</h1>
 
-<p>
-今天开始搭建属于自己的小世界。
-</p>
+        <p>日々のことを、少しずつ。</p>
 
-<h2>我的兴趣</h2>
+    </header>
 
-<ul>
-    <li>🎵 日本音乐</li>
-    <li>🎬 动漫</li>
-    <li>🇯🇵 日语学习</li>
-    <li>📷 生活记录</li>
-</ul>
+
+    <!-- 日期 -->
+    <div class="date">
+        2026年 8月 21日　金曜日
+    </div>
+
+
+    <!-- 今日记录 -->
+    <section class="diary">
+
+        <h2>今日のこと</h2>
+
+        <p>
+            这里以后会记录今天发生的事情。
+        </p>
+
+        <p>
+            今天是「月見の庭」开始搭建的第一天。
+        </p>
+
+    </section>
+
+
+    <!-- 四个入口 -->
+    <section class="sections">
+
+        <div class="section">
+            <div class="symbol">📖</div>
+            <h3>日記</h3>
+            <p>日々の記録</p>
+        </div>
+
+        <div class="section">
+            <div class="symbol">📷</div>
+            <h3>写真</h3>
+            <p>小さな思い出</p>
+        </div>
+
+        <div class="section">
+            <div class="symbol">🎵</div>
+            <h3>音楽</h3>
+            <p>今日聴いた音楽</p>
+        </div>
+
+        <div class="section">
+            <div class="symbol">✎</div>
+            <h3>日本語</h3>
+            <p>日本語の勉強</p>
+        </div>
+
+    </section>
+
+
+    <!-- 月相 -->
+    <section class="moon-section">
+
+        <h2>今月の月</h2>
+
+        <div class="phases">
+            ◐ ◑ ◒ ◓ ● ◒ ◑ ◐
+        </div>
+
+    </section>
+
+
+    <!-- 底部 -->
+    <footer>
+
+        「今日も、月がきれい。」
+
+        <br>
+
+        — 月見
+
+    </footer>
+
+</div>
 
 </body>
 </html>
