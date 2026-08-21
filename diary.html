@@ -383,7 +383,7 @@ opacity:.8;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
   
 <script>
-  
+
 const SUPABASE_URL =
 "https://cnmsctwltdmfkgfhysqi.supabase.co";
 
@@ -394,16 +394,31 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
+
+
+
+const diary =
+document.getElementById("diary-text");
+
+const music =
+document.getElementById("music");
+
+const musicLink =
+document.getElementById("music-link");
+
+const japanese =
+document.getElementById("japanese-text");
 
 
 
 const params =
 new URLSearchParams(
-    window.location.search
+window.location.search
 );
+
 
 
 const date =
@@ -425,24 +440,29 @@ date || todayString;
 
 
 
-const title =
-document.getElementById("title");
+const isToday =
+targetDate === todayString;
 
 
 
-if(date){
+if(!isToday){
 
-title.textContent =
-`${date}の日記`;
+document.getElementById("title").textContent =
+`${targetDate}の日記`;
 
 }
 
 
 
+// 日期显示
+
 document.getElementById("date").textContent =
 targetDate;
 
 
+
+
+// 加载日记
 
 async function loadDiary(){
 
@@ -461,71 +481,142 @@ await supabaseClient
 
 
 
-console.log(data);
+if(error){
+
 console.log(error);
+
+return;
+
+}
 
 
 
 if(data){
 
 
-document.getElementById("diary-content").textContent =
-data.content || "今天没有留下记录。";
+diary.value =
+data.content || "";
 
 
-
-if(data.music_link){
-
-
-document.getElementById("music-content").innerHTML =
-`
-${data.music || ""}
-<br>
-<a href="${data.music_link}" target="_blank">
-🎵 打开音乐
-</a>
-`;
-
-}
-else{
+music.value =
+data.music || "";
 
 
-document.getElementById("music-content").textContent =
-data.music || "没有记录音乐。";
+musicLink.value =
+data.music_link || "";
+
+
+japanese.value =
+data.japanese || "";
 
 
 }
 
-
-
-document.getElementById("japanese-content").textContent =
-data.japanese || "没有记录日本語。";
-
-
-
-}
 
 else{
 
 
-document.getElementById("diary-content").textContent =
-"今天没有留下记录。";
+diary.value =
+"没有记录";
 
 
-document.getElementById("music-content").textContent =
-"没有记录音乐。";
+music.value =
+"没有记录";
 
 
-document.getElementById("japanese-content").textContent =
-"没有记录日本語。";
+japanese.value =
+"没有记录";
+
+
+}
 
 
 }
 
 
 
+loadDiary();
+
+
+
+
+
+// 保存按钮
+
+document
+.getElementById("save")
+.onclick = async function(){
+
+
+
+const data = {
+
+
+date:targetDate,
+
+
+content:diary.value,
+
+
+music:music.value,
+
+
+music_link:musicLink.value,
+
+
+japanese:japanese.value
+
+
+};
+
+
+
+
+const {error}=
+
+
+await supabaseClient
+
+.from("diary")
+
+.upsert(
+
+[data],
+
+{
+
+onConflict:"date"
+
 }
 
+);
+
+
+
+if(error){
+
+
+console.log(error);
+
+alert("保存失败");
+
+
+}
+
+else{
+
+
+alert("月の記録を保存しました 🌙");
+
+
+}
+
+
+};
+
+
+
+</script>
 
 
 loadDiary();
