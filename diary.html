@@ -404,7 +404,19 @@ placeholder="今日の日本語">
 
 
 <script>
+const SUPABASE_URL =
+"https://cnmsctwltdmfkgfhysqi.supabase.co";
 
+
+const SUPABASE_KEY =
+"sb_publishable_sxexZUH4aIZ0F6p3WwMY2Q_4JagOL24";
+
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 const params =
 new URLSearchParams(
@@ -415,7 +427,54 @@ window.location.search
 const date =
 params.get("date");
 
+async function loadDiary(){
 
+if(!date){
+return;
+}
+
+
+const {data,error}=
+
+await supabaseClient
+
+.from("diary")
+
+.select("*")
+
+.eq("date",date)
+
+.single();
+
+
+
+if(data){
+
+
+diary.value =
+data.content || "";
+
+
+music.value =
+data.music || "";
+
+
+musicLink.value =
+data.music_link || "";
+
+
+japanese.value =
+data.japanese || "";
+
+
+}
+
+
+}
+
+
+
+loadDiary();
 
 if(date){
 
@@ -448,70 +507,60 @@ const japanese =
 document.getElementById("japanese-text");
 
 
-
-const saved =
-JSON.parse(
-localStorage.getItem("moonDiary")
-);
-
-
-
-if(saved){
-
-diary.value =
-saved.diary || "";
-
-
-music.value =
-saved.music || "";
-
-
-musicLink.value =
-saved.musicLink || "";
-
-
-japanese.value =
-saved.japanese || "";
-
-}
-
-
-
-
 document.getElementById("save")
-.onclick=function(){
+.onclick=async function(){
 
 
 const data={
 
+date:date,
 
-diary:diary.value,
+content:diary.value,
 
 music:music.value,
 
-musicLink:musicLink.value,
+music_link:musicLink.value,
 
 japanese:japanese.value
-
 
 };
 
 
 
-localStorage.setItem(
-"moonDiary",
-JSON.stringify(data)
+const {error}=
+
+await supabaseClient
+
+.from("diary")
+
+.upsert(
+[data],
+{
+onConflict:"date"
+}
 );
 
 
 
-alert("月の記録を保存しました。🌙");
+if(error){
+
+console.log(error);
+
+alert("保存失败");
+
+}
+
+else{
+
+alert("月の記録を保存しました 🌙");
+
+}
 
 
 };
   
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </body>
 
