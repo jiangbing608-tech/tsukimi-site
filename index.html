@@ -604,18 +604,11 @@ placeholder="🎵 网易云音乐链接"
 
 <h3>今日のこと</h3>
 
-<p>
-这里记录今天发生的事情。
-</p>
-
-<p>
-可以写一点想法，
-一点生活，
-一点月光下的小故事。
+<p id="today-preview">
+今天还没有记录。
 </p>
 
 </div>
-
 
 </div>
 
@@ -816,8 +809,12 @@ document.getElementById("music-url").value =
 data.music || "";
 
 
-}
 
+document.getElementById("today-preview").textContent =
+data.content || "今天还没有记录。";
+
+
+}
 
 
 
