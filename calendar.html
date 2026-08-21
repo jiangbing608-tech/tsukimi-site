@@ -462,12 +462,10 @@ div.classList.add("today");
 
 div.onclick=function(){
 
-alert(
-`${year}年${month+1}月${d}日`
-);
+window.location.href =
+`diary.html?date=${year}-${month+1}-${d}`;
 
 };
-
 
 
 calendar.appendChild(div);
