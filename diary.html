@@ -340,9 +340,9 @@ opacity:.8;
 </h2>
 
 
-<div class="photo">
+<div class="photo" id="photo-content">
 
-以后放照片
+暂无照片
 
 </div>
 
@@ -380,7 +380,7 @@ opacity:.8;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
 <script>
 
@@ -400,19 +400,19 @@ SUPABASE_KEY
 
 
 
-const diary =
-document.getElementById("diary-text");
-
-const music =
-document.getElementById("music");
-
-const musicLink =
-document.getElementById("music-link");
-
-const japanese =
-document.getElementById("japanese-text");
+const diaryContent =
+document.getElementById("diary-content");
 
 
+const musicContent =
+document.getElementById("music-content");
+
+
+const japaneseContent =
+document.getElementById("japanese-content");
+
+const photoContent =
+document.getElementById("photo-content");
 
 const params =
 new URLSearchParams(
@@ -426,12 +426,12 @@ params.get("date");
 
 
 
-const todayDate =
+const today =
 new Date();
 
 
 const todayString =
-`${todayDate.getFullYear()}-${String(todayDate.getMonth()+1).padStart(2,"0")}-${String(todayDate.getDate()).padStart(2,"0")}`;
+`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
 
 
 
@@ -440,12 +440,7 @@ date || todayString;
 
 
 
-const isToday =
-targetDate === todayString;
-
-
-
-if(!isToday){
+if(targetDate !== todayString){
 
 document.getElementById("title").textContent =
 `${targetDate}の日記`;
@@ -454,15 +449,11 @@ document.getElementById("title").textContent =
 
 
 
-// 日期显示
-
 document.getElementById("date").textContent =
 targetDate;
 
 
 
-
-// 加载日记
 
 async function loadDiary(){
 
@@ -477,13 +468,39 @@ await supabaseClient
 
 .eq("date",targetDate)
 
-.single();
+.maybeSingle();
 
 
 
-if(error){
+/*
+今天：
+没有记录 → 保持空白
 
-console.log(error);
+过去：
+没有记录 → 显示暂无记录
+*/
+
+
+if(error || !data){
+
+
+if(targetDate !== todayString){
+
+
+diaryContent.textContent =
+"暂无记录";
+
+
+musicContent.textContent =
+"暂无记录";
+
+
+japaneseContent.textContent =
+"暂无记录";
+
+
+}
+
 
 return;
 
@@ -491,135 +508,27 @@ return;
 
 
 
-if(data){
+
+diaryContent.textContent =
+data.content || "暂无记录";
 
 
-diary.value =
-data.content || "";
+musicContent.textContent =
+data.music || "暂无记录";
 
 
-music.value =
-data.music || "";
+japaneseContent.textContent =
+data.japanese || "暂无记录";
 
-
-musicLink.value =
-data.music_link || "";
-
-
-japanese.value =
-data.japanese || "";
-
+photoContent.textContent =
+data.photo || "暂无照片";
 
 }
-
-
-else{
-
-
-diary.value =
-"没有记录";
-
-
-music.value =
-"没有记录";
-
-
-japanese.value =
-"没有记录";
-
-
-}
-
-
-}
-
 
 
 loadDiary();
-
-
-
-
-
-// 保存按钮
-
-document
-.getElementById("save")
-.onclick = async function(){
-
-
-
-const data = {
-
-
-date:targetDate,
-
-
-content:diary.value,
-
-
-music:music.value,
-
-
-music_link:musicLink.value,
-
-
-japanese:japanese.value
-
-
-};
-
-
-
-
-const {error}=
-
-
-await supabaseClient
-
-.from("diary")
-
-.upsert(
-
-[data],
-
-{
-
-onConflict:"date"
-
-}
-
-);
-
-
-
-if(error){
-
-
-console.log(error);
-
-alert("保存失败");
-
-
-}
-
-else{
-
-
-alert("月の記録を保存しました 🌙");
-
-
-}
-
-
-};
-
-
-
 </script>
 
-
-loadDiary();
 </body>
 
 </html>
