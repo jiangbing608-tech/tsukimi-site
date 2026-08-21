@@ -12,7 +12,7 @@
 <style>
 
 * {
-    box-sizing: border-box;
+    box-sizing:border-box;
 }
 
 
@@ -42,9 +42,38 @@ body {
 
     margin:auto;
 
-    padding:70px 30px;
+    padding:50px 30px;
 
     text-align:center;
+
+}
+
+
+
+/* 返回庭院 */
+
+.back {
+
+    display:inline-block;
+
+    margin-bottom:50px;
+
+    color:#596270;
+
+    text-decoration:none;
+
+    letter-spacing:3px;
+
+    font-size:14px;
+
+    opacity:0.75;
+
+}
+
+
+.back:hover {
+
+    opacity:1;
 
 }
 
@@ -83,6 +112,7 @@ h1 {
     margin:0;
 
 }
+
 
 
 .subtitle {
@@ -167,7 +197,7 @@ h1 {
 
     cursor:pointer;
 
-    transition:0.2s;
+    transition:.2s;
 
 }
 
@@ -189,9 +219,9 @@ h1 {
 
     min-height:30px;
 
-    color:#777;
-
     cursor:default;
+
+    color:#777;
 
 }
 
@@ -202,22 +232,6 @@ h1 {
     background:#596270;
 
     color:white;
-
-}
-
-
-
-/* 未来日记标记 */
-
-.has-record::after {
-
-    content:"☾";
-
-    display:block;
-
-    font-size:12px;
-
-    margin-top:5px;
 
 }
 
@@ -239,14 +253,12 @@ footer {
 
 
 
-
-
 @media(max-width:600px){
 
 
 .room{
 
-    padding:50px 15px;
+    padding:40px 15px;
 
 }
 
@@ -269,13 +281,10 @@ h1{
 
     min-height:45px;
 
-    padding:8px;
-
 }
 
 
 }
-
 
 
 
@@ -289,6 +298,12 @@ h1{
 
 
 <div class="room">
+
+
+
+<a href="index.html" class="back">
+⛩️ 月見の庭へ戻る
+</a>
 
 
 
@@ -315,14 +330,11 @@ h1{
 
 
 
-<h2 class="month-title" id="month-title">
-
-</h2>
+<h2 class="month-title" id="month-title"></h2>
 
 
 
 <div class="calendar" id="calendar">
-
 
 </div>
 
@@ -341,7 +353,6 @@ h1{
 
 
 
-
 <script>
 
 
@@ -351,7 +362,6 @@ document.getElementById("calendar");
 
 const monthTitle =
 document.getElementById("month-title");
-
 
 
 const today =
@@ -369,7 +379,7 @@ today.getMonth();
 
 
 monthTitle.textContent =
-`${year}年 ${month + 1}月`;
+`${year}年 ${month+1}月`;
 
 
 
@@ -386,18 +396,14 @@ const weeks =
 
 
 
-weeks.forEach(day=>{
+weeks.forEach(w=>{
 
 
-const div =
-document.createElement("div");
-
+const div=document.createElement("div");
 
 div.className="day week";
 
-
-div.textContent=day;
-
+div.textContent=w;
 
 calendar.appendChild(div);
 
@@ -406,47 +412,35 @@ calendar.appendChild(div);
 
 
 
-
-
-const firstDay =
+const first =
 new Date(year,month,1).getDay();
 
 
 
-const lastDate =
+const last =
 new Date(year,month+1,0).getDate();
 
 
 
+for(let i=0;i<first;i++){
 
-
-for(let i=0;i<firstDay;i++){
-
-
-const empty =
-document.createElement("div");
-
+const empty=document.createElement("div");
 
 empty.className="day";
 
-
 empty.style.visibility="hidden";
 
-
 calendar.appendChild(empty);
-
 
 }
 
 
 
 
+for(let d=1;d<=last;d++){
 
-for(let d=1;d<=lastDate;d++){
 
-
-const div =
-document.createElement("div");
+const div=document.createElement("div");
 
 
 div.className="day";
@@ -458,11 +452,6 @@ div.textContent=d;
 
 if(
 d===today.getDate()
-&&
-month===today.getMonth()
-&&
-year===today.getFullYear()
-
 ){
 
 div.classList.add("today");
@@ -477,12 +466,11 @@ alert(
 `${year}年${month+1}月${d}日`
 );
 
-}
+};
 
 
 
 calendar.appendChild(div);
-
 
 
 }
