@@ -774,7 +774,24 @@ supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+    
+function getMusicId(url){
 
+const result =
+url.match(/id=(\d+)/);
+
+
+if(result){
+
+return result[1];
+
+}
+
+
+return null;
+
+}
+    
 document.addEventListener("DOMContentLoaded",async()=>{
 
 
@@ -804,28 +821,51 @@ await supabaseClient
 
 
 if(data){
+
+
+const musicId =
+getMusicId(data.music_link);
+
+
+
+if(musicId){
+
+
 document.getElementById("music-card").innerHTML =
 
 `
-🎵 ${data.music_name || "今日音乐"}
 
-<br>
-
-${data.music_artist || ""}
+🎵 今日音乐
 
 <br><br>
 
-<img 
-src="${data.music_cover || ""}"
-width="120">
 
-<br>
+<iframe
 
-<a href="${data.music_link}" target="_blank">
-▶ 打开音乐
-</a>
+frameborder="no"
+
+border="0"
+
+marginwidth="0"
+
+marginheight="0"
+
+width="330"
+
+height="86"
+
+src="https://music.163.com/outchain/player?type=2&id=${musicId}&auto=0&height=66">
+
+</iframe>
+
 
 `;
+
+
+
+}
+
+}
 
 document.getElementById("diary-text").value =
 data.content || "";
