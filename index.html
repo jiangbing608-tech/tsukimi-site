@@ -274,6 +274,45 @@
     letter-spacing:3px;
 
 }
+        /* 折叠日记 */
+
+#open-diary{
+
+    margin:20px auto;
+
+    display:block;
+
+    background:#596270;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 35px;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+}
+
+
+
+.diary-editor{
+
+    display:none;
+
+    margin-top:30px;
+
+}
+
+
+
+.diary-editor.show{
+
+    display:block;
+
+}
         
         /* 四个入口 */
         .sections {
@@ -519,6 +558,27 @@
                 letter-spacing: 5px;
             }
         }
+
+#open-diary{
+
+    margin:20px auto;
+
+    display:block;
+
+    background:transparent;
+
+    color:#596270;
+
+    border:1px solid #596270;
+
+    padding:12px 35px;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+}
+        
     </style>
 </head>
 
@@ -563,7 +623,19 @@
 
 <section class="diary">
 
-<h2>今日の記録</h2>
+
+<h2>
+今日の記録
+</h2>
+
+
+<button id="open-diary">
+✎ 今日を書く
+</button>
+
+
+
+<div id="diary-editor" class="diary-editor">
 
 
 <textarea 
@@ -589,8 +661,11 @@ placeholder="🔗 网易云音乐链接"
 </button>
 
 
-</section>
+</div>
 
+
+</section>
+    
 <!-- 生活记录 -->
 
 <section class="life">
@@ -794,6 +869,36 @@ return null;
     
 document.addEventListener("DOMContentLoaded",async()=>{
 
+    const openDiary =
+document.getElementById("open-diary");
+
+
+const diaryEditor =
+document.getElementById("diary-editor");
+
+
+
+openDiary.onclick = function(){
+
+
+diaryEditor.classList.toggle("show");
+
+
+
+if(diaryEditor.classList.contains("show")){
+
+openDiary.textContent =
+"收起记录";
+
+}else{
+
+openDiary.textContent =
+"✎ 今日を書く";
+
+}
+
+
+};
 
 // 获取今天日期
 
